@@ -1,40 +1,43 @@
-import * as mainService from '../../services/mainService.js';
+import * as mainService from '../../services/mainService.js'
 
 const renderMain = ({ render }) => {
-  render('main.eta');
-};
+  render('main.eta')
+}
 
 const postFormData = async ({ response, request, render }) => {
-  const body = request.body();
-  const params = await body.value;
-  const url = params.get('url');
-  let length = 6;
-  let string = '';
-  let i = 0;
-  const abc = 'abcdefghijklmnopqrstuvwxyz';
+  const body = request.body()
+  const params = await body.value
+  const url = params.get('url')
+  let length = 6
+  let string = ''
+  let i = 0
+  const abc = 'abcdefghijklmnopqrstuvwxyz'
   for (i; i < length; i++) {
-    let index = Math.floor(Math.random() * 26);
-    let whatCase = Math.floor(Math.random() * 2);
+    let index = Math.floor(Math.random() * 26)
+    let whatCase = Math.floor(Math.random() * 2)
 
     if (whatCase === 0) {
-      string = string + abc[index];
+      string = string + abc[index]
     } else {
-      string = string + abc[index].toUpperCase();
+      string = string + abc[index].toUpperCase()
     }
   }
 
-  await mainService.setUrl(url, string);
+  await mainService.setUrl(url, string)
   const data = {
     url: url,
     string: string,
-  };
-  render('main.eta', data);
-};
+  }
+  render('main.eta', data)
+}
 
 const redirectTo = async ({ params, response }) => {
-  const string = params.string;
-  const url = await mainService.getUrl(string);
-  return response.redirect(url);
-};
+  const string = params.string
+  console.log('string:', string)
+  const url = await mainService.getUrl(string)
+  console.log('im here')
+  console.log(url, 'this is the url')
+  return response.redirect(url)
+}
 
-export { renderMain, postFormData, redirectTo };
+export { renderMain, postFormData, redirectTo }
