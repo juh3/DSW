@@ -23,7 +23,6 @@ const redirect = (path) => {
 
 const redirectTo = async (string) => {
   const url = await mainService.getUrl(string)
-  console.log('the real url', url)
   return url
 }
 
@@ -31,7 +30,6 @@ const handleRequest = async (request) => {
   const url = new URL(request.url)
   const path = url.pathname
   const parts = path.split('/')
-  console.log(parts, 'handleRequest parts')
   if (url.pathname === '/' && request.method === 'GET') {
     return new Response(await renderFile('main.eta'), responseDetails)
   } else if (url.pathname === '/' && request.method === 'POST') {
@@ -44,7 +42,6 @@ const handleRequest = async (request) => {
       responseDetails
     )
   } else if (parts[1].length === 6 && request.method === 'GET') {
-    console.log('trying to redirect, handleRequest')
     const newUrl = await redirectTo(parts[1])
     return redirect(newUrl)
   } else {

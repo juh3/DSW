@@ -33,10 +33,7 @@ const postFormData = async ({ response, request, render }) => {
 
 const redirectTo = async ({ params, response }) => {
   const string = params.string
-  console.log('string:', string)
   const url = await mainService.getUrl(string)
-  console.log('im here')
-  console.log(url, 'this is the url')
   return response.redirect(url)
 }
 

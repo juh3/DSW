@@ -8,7 +8,6 @@ const setUrl = async (url, string) => {
 }
 
 const getUrl = async (string) => {
-  console.log('getting url', string)
   const response = await executeQuery(
     'SELECT (url) FROM shortenings WHERE string = $string',
     { string: string }
